@@ -1,0 +1,9 @@
+# Binaries
+*build*/
+
+# Inputs
+*.txt
+!**/CMakeLists.txt
+
+# IDE
+.idea/
