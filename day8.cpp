@@ -130,6 +130,7 @@ Int part2(const CodeType& originalCode)
         else if (instruction.type == InstructionType::jmp)
             instruction.type = InstructionType::nop;
     }
+    return -1;
 }
 
 int main()
