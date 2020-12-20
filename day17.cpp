@@ -49,9 +49,9 @@ struct Array2D
 };
 
 template<typename T>
-struct Array4D
+struct Array3D
 {
-    Array4D(Int xmin, Int ymin, Int zmin, Int xsize, Int ysize, Int zsize, T init = T()) :
+    Array3D(Int xmin, Int ymin, Int zmin, Int xsize, Int ysize, Int zsize, T init = T()) :
         xmin{xmin},
         ymin{ymin},
         zmin{zmin},
@@ -157,9 +157,9 @@ Array2D<char> loadMap(const std::string& filename)
 // the original map is placed so that the left top corner is at (0,0,0) and is in xy plane
 // the 3d map has size increase in every direction
 template<typename T>
-Array4D<T> array2DTo4D(const Array2D<T>& array2D, Int sizeIncrease, T init = T())
+Array3D<T> array2DTo4D(const Array2D<T>& array2D, Int sizeIncrease, T init = T())
 {
-    Array3D array3D(-sizeIncrease, -sizeIncrease, -sizeIncrease,
+    Array3D<char> array3D(-sizeIncrease, -sizeIncrease, -sizeIncrease,
                     array2D.cols + 2 * sizeIncrease + 1, array2D.rows + 2 * sizeIncrease + 1, 2 * sizeIncrease + 1,
                     init);
     for (Int x = 0; x < array2D.cols; ++x)
@@ -182,7 +182,7 @@ void printMap(const Array2D<char>& map)
     }
 }
 
-void printMap(const Array4D<char>& map)
+void printMap(const Array3D<char>& map)
 {
     for (Int z = map.zmin; z < map.zmax(); ++z)
     {
@@ -196,7 +196,7 @@ void printMap(const Array4D<char>& map)
     }
 }
 
-std::vector<Vec3D> getNeighbors(Int x, Int y, Int z, Array4D<char>& map)
+std::vector<Vec3D> getNeighbors(Int x, Int y, Int z, Array3D<char>& map)
 {
     std::vector<Vec3D> neighbors{
             {x - 1, y - 1, z - 1},
@@ -243,7 +243,7 @@ std::vector<Vec3D> getNeighbors(Int x, Int y, Int z, Array4D<char>& map)
     return neighbors;
 }
 
-void updateMap(Array4D<char>& map)
+void updateMap(Array3D<char>& map)
 {
     auto oldMap = map;
     for (Int z = map.zmin; z < map.zmax(); ++z)
@@ -270,7 +270,7 @@ void updateMap(Array4D<char>& map)
     }
 }
 
-Int cycle(Array4D<char> map, Int cycleCount)
+Int cycle(Array3D<char> map, Int cycleCount)
 {
     auto prevMap = map;
     updateMap(map);
