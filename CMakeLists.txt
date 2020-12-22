@@ -17,8 +17,6 @@ set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME ON)
 find_package(Boost REQUIRED)
 
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /STACK:8388608")
-
 # Executables
 add_executable(day1 day1.cpp)
 add_executable(day2 day2.cpp)
@@ -50,3 +48,4 @@ add_executable(day19part2 day19part2.cpp)
 target_link_libraries(day19part2 PRIVATE Boost::boost)
 add_executable(day20 day20.cpp)
 add_executable(day21 day21.cpp)
+add_executable(day22 day22.cpp)
